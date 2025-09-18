@@ -1,0 +1,35 @@
+{% extends 'layout.html' %}
+
+{% block head %} <title>App</title>{% endblock %}
+
+{% block body %} 
+   <div class="div content">
+        <h1>My first app</h1>
+        {%if tasks | length < 1%}
+         <h3>Add some tasks</h3>
+        {%else%}
+            <table>
+                <tr>
+                    <th>Tasks</th>
+                    <th>Added</th>
+                    <th>Actions</th>
+                </tr>
+                {%for task in tasks%}
+                    <tr>
+                        <td>{{task.content}}</td>
+                        <td>{{task.created.strftime("%Y-%m-%d")}}</td>
+                        <td>
+                            <a href="/delete/{{task.id}}">DELETE TASK</a><br>
+                               <a href = "/edit/{{task.id}}">EDIT TASK</a>
+                        </td>
+                    </tr>
+                {%endfor%}
+            </table>
+            {%endif%}
+            <form action="/" method ="POST">
+                <input type="text" name="content" id="name">
+                <input type="submit" value="Add task" id="btn_Add">
+            </form>
+    </div>
+{% endblock %}
+
